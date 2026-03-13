@@ -3,7 +3,10 @@ import { swagger } from '@elysiajs/swagger'
 import { cors } from '@elysiajs/cors'
 import { compressImage } from './compressor'
 
-const app = new Elysia()
+/**
+ * Define the main Elysia app instance
+ */
+export const app = new Elysia()
     .use(cors())
     .use(swagger({
         path: '/v1/spec',
@@ -26,8 +29,28 @@ const app = new Elysia()
             tags: ['Skill'],
             summary: 'Optimize Image'
         }
-    })
-    .listen(3001);
+    });
 
-console.log(`🚀 Skill HTTP Server: http://localhost:3001`);
-console.log(`📄 Spec: http://localhost:3001/v1/spec`);
+/**
+ * For Smithery Deploy: Export a sandbox server function for capability scanning.
+ * This allows Smithery to discover tools without needing actual credentials/config.
+ */
+export function createSandboxServer() {
+    return app;
+}
+
+/**
+ * Standard Web Fetch export for serverless/sandboxed environments
+ */
+export default {
+    fetch: app.fetch
+};
+
+/**
+ * Only listen to port if running directly (e.g., via bun run)
+ */
+if (import.meta.main) {
+    app.listen(3001);
+    console.log(`🚀 Skill HTTP Server: http://localhost:3001`);
+    console.log(`📄 Spec: http://localhost:3001/v1/spec`);
+}
