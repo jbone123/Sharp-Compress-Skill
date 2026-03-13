@@ -5,6 +5,7 @@ import {
     ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import { compressImage } from "./compressor";
+import path from "node:path";
 
 /**
  * Initialize the MCP Server
@@ -84,6 +85,6 @@ export function createSandboxServer() {
  */
 if (import.meta.main) {
     const transport = new StdioServerTransport();
-    await server.connect(transport);
+    server.connect(transport).catch(console.error);
     console.error("🖼️ Sharp Compress MCP Server running...");
 }

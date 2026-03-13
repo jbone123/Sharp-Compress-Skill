@@ -2,6 +2,7 @@ import { Elysia, t } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 import { cors } from '@elysiajs/cors'
 import { compressImage } from './compressor'
+import path from 'node:path'
 
 /**
  * Define the main Elysia app instance

@@ -1,6 +1,6 @@
 import sharp from 'sharp';
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 
 export interface CompressionResult {
     originalPath: string;
