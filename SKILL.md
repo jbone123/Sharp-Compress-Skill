@@ -48,7 +48,7 @@ Add this to your `cursor` or `antigravity` config:
   "mcpServers": {
     "sharp-compress": {
       "command": "bun",
-      "args": ["run", "/Users/years/FE /简历/Sharp-Compress-Skill/src/mcp.ts"]
+      "args": ["run", "/absolute/path/to/Sharp-Compress-Skill/src/mcp.ts"]
     }
   }
 }
