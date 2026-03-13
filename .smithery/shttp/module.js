@@ -34496,8 +34496,8 @@ var cors = (config) => {
 
 // src/compressor.ts
 var import_sharp = __toESM(require_lib());
-import path from "path";
-import fs from "fs";
+import path from "node:path";
+import fs from "node:fs";
 async function compressImage(inputPath, quality = 80) {
   const stats = fs.statSync(inputPath);
   const ext = path.extname(inputPath).toLowerCase();
