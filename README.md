@@ -77,3 +77,20 @@ bun run src/mcp.ts
 ```
 
 当看到终端输出 MCP server 正常运行后，就可以在客户端内调用 `compress_image` 工具，对本地图片进行压缩了。
+
+### 架构示意（中文）
+
+整体可以理解为三层：
+
+1. **图像处理层（Sharp / `compressImage`）**
+   - 使用 `sharp` 读取、压缩并写回图片，是所有实际“干活”的逻辑所在。
+2. **HTTP 服务层（Elysia / `src/index.ts`）**
+   - 使用 Elysia 暴露一个 `POST /compress` 接口。
+   - 收到请求后，从请求体中取出 `path` 和 `quality`，调用 `compressImage`，再把结果作为 HTTP 响应返回。
+3. **MCP 协议层（`src/mcp.ts`）**
+   - 使用 `@modelcontextprotocol/sdk` 暴露 MCP 工具 `compress_image`。
+   - AI 客户端（如 Cursor、Claude）通过 MCP 协议调用该工具，内部同样是调用同一个 `compressImage` 函数。
+
+可以简单记忆为：
+
+> **MCP / HTTP 都只是“入口”和“壳子”，真正对图片动手的是底层的 Sharp（`compressImage`）。**
