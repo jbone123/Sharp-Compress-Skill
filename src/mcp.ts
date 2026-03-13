@@ -4,9 +4,12 @@ import {
     CallToolRequestSchema,
     ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { compressImage } from "./compressor.js";
+import { compressImage } from "./compressor";
 
-const server = new Server(
+/**
+ * Initialize the MCP Server
+ */
+export const server = new Server(
     {
         name: "sharp-compress-skill",
         version: "1.0.0",
@@ -18,6 +21,7 @@ const server = new Server(
     }
 );
 
+// Define tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
         tools: [
@@ -44,6 +48,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     };
 });
 
+// Define handlers
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
     if (request.params.name === "compress_image") {
         const { path: imgPath, quality } = request.params.arguments as any;
@@ -67,6 +72,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     throw new Error(`Tool not found: ${request.params.name}`);
 });
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
-console.error("🖼️ Sharp Compress MCP Server running...");
+/**
+ * For Smithery Deploy: Export a sandbox server function for capability scanning.
+ */
+export function createSandboxServer() {
+    return server;
+}
+
+/**
+ * Main execution
+ */
+if (import.meta.main) {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error("🖼️ Sharp Compress MCP Server running...");
+}

@@ -9219,7 +9219,7 @@ var require_color = __commonJS({
     var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var index_exports = {};
     __export2(index_exports, {
-      default: () => index_default
+      default: () => index_default2
     });
     module.exports = __toCommonJS(index_exports);
     var colors = {
@@ -10781,7 +10781,7 @@ var require_color = __commonJS({
       }
       return array;
     }
-    var index_default = Color;
+    var index_default2 = Color;
   }
 });
 
@@ -34558,9 +34558,23 @@ var app = new Elysia().use(cors()).use(swagger({
     tags: ["Skill"],
     summary: "Optimize Image"
   }
-}).listen(3001);
-console.log(`\u{1F680} Skill HTTP Server: http://localhost:3001`);
-console.log(`\u{1F4C4} Spec: http://localhost:3001/v1/spec`);
+});
+function createSandboxServer() {
+  return app;
+}
+var index_default = {
+  fetch: app.fetch
+};
+if (import.meta.main) {
+  app.listen(3001);
+  console.log(`\u{1F680} Skill HTTP Server: http://localhost:3001`);
+  console.log(`\u{1F4C4} Spec: http://localhost:3001/v1/spec`);
+}
+export {
+  app,
+  createSandboxServer,
+  index_default as default
+};
 /*! Bundled license information:
 
 ieee754/index.js:
