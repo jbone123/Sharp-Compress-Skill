@@ -1,0 +1,33 @@
+{
+  "description": "High-performance image optimization MCP server powered by Sharp and Bun. Supports WebP conversion and PNG quantization.",
+  "main": "src/index.ts",
+  "bin": {
+    "sharp-compress": "./src/mcp.ts"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "image-compression",
+    "sharp",
+    "bun",
+    "webp",
+    "optimization"
+  ],
+  "author": "Years",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^25.5.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.1",
+    "@elysiajs/swagger": "^1.3.1",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "elysia": "^1.4.27",
+    "sharp": "^0.34.5"
+  }
+}

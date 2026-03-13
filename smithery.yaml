@@ -1,0 +1,18 @@
+# Smithery configuration
+# See https://smithery.ai/docs/config for more information
+
+startCommand:
+  command: bun
+  args: ["run", "src/mcp.ts"]
+
+# Required for hosting
+docker:
+  image: "oven/bun:latest"
+  command: ["bun", "run", "src/mcp.ts"]
+
+# Metadata for Smithery
+metadata:
+  name: sharp-compress-skill
+  description: High-performance image optimization (WebP/PNG) MCP server.
+  category: utility
+  tags: ["image", "optimization", "sharp", "bun"]
